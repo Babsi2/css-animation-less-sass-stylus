@@ -1,0 +1,194 @@
+@-webkit-keyframes change-the-color {
+  0% {
+    background-color: yellow; }
+  100% {
+    background-color: magenta; } }
+@-moz-keyframes change-the-color {
+  0% {
+    background-color: yellow; }
+  100% {
+    background-color: magenta; } }
+@-o-keyframes change-the-color {
+  0% {
+    background-color: yellow; }
+  100% {
+    background-color: magenta; } }
+@keyframes change-the-color {
+  0% {
+    background-color: yellow; }
+  100% {
+    background-color: magenta; } }
+@-webkit-keyframes move-the-object {
+  0% {
+    margin-left: 65px;
+    margin-right: 65px; }
+  100% {
+    margin-left: 95px;
+    margin-right: 35px; } }
+@-moz-keyframes move-the-object {
+  0% {
+    margin-left: 65px;
+    margin-right: 65px; }
+  100% {
+    margin-left: 95px;
+    margin-right: 35px; } }
+@-o-keyframes move-the-object {
+  0% {
+    margin-left: 65px;
+    margin-right: 65px; }
+  100% {
+    margin-left: 95px;
+    margin-right: 35px; } }
+@keyframes move-the-object {
+  0% {
+    margin-left: 65px;
+    margin-right: 65px; }
+  100% {
+    margin-left: 95px;
+    margin-right: 35px; } }
+@-webkit-keyframes bounce {
+  0% {
+    margin-top: 15px; }
+  25% {
+    margin-top: 45px; }
+  50% {
+    margin-top: 25px; }
+  75% {
+    margin-top: 50px; }
+  100% {
+    margin-top: 15px; } }
+@-moz-keyframes bounce {
+  0% {
+    margin-top: 15px; }
+  25% {
+    margin-top: 45px; }
+  50% {
+    margin-top: 25px; }
+  75% {
+    margin-top: 50px; }
+  100% {
+    margin-top: 15px; } }
+@-o-keyframes bounce {
+  0% {
+    margin-top: 15px; }
+  25% {
+    margin-top: 45px; }
+  50% {
+    margin-top: 25px; }
+  75% {
+    margin-top: 50px; }
+  100% {
+    margin-top: 15px; } }
+@keyframes bounce {
+  0% {
+    margin-top: 15px; }
+  25% {
+    margin-top: 45px; }
+  50% {
+    margin-top: 25px; }
+  75% {
+    margin-top: 50px; }
+  100% {
+    margin-top: 15px; } }
+.change-color:hover {
+  -webkit-animation: change-the-color 2s; }
+
+.zoom {
+  /* Webkit for Chrome and Safari */
+  -webkit-transform: scale(1, 1);
+  -webkit-transition-duration: 500ms;
+  -webkit-transition-timing-function: ease-out;
+  /* Webkit for Mozila Firefox */
+  -moz-transform: scale(1, 1);
+  -moz-transition-duration: 500ms;
+  -moz-transition-timing-function: ease-out;
+  /* Webkit for IE( Version: 11, 10 ) */
+  -ms-transform: scale(1, 1);
+  -ms-transition-duration: 500ms;
+  -ms-transition-timing-function: ease-out; }
+  .zoom:hover {
+    /* Webkit for Chrome and Safari */
+    -webkit-transform: scale(1.2, 1.2);
+    -webkit-transition-duration: 500ms;
+    -webkit-transition-timing-function: ease-out;
+    /* Webkit for Mozila Firefox */
+    -moz-transform: scale(1.2, 1.2);
+    -moz-transition-duration: 500ms;
+    -moz-transition-timing-function: ease-out;
+    /* Webkit for IE( Version: 11, 10 ) */
+    -ms-transform: scale(1.2, 1.2);
+    -ms-transition-duration: 500ms;
+    -ms-transition-timing-function: ease-out; }
+
+.rotate:hover {
+  -moz-transform: rotate(30deg);
+  /* Firefox 3.6 Firefox 4 */
+  -webkit-transform: rotate(30deg);
+  /* Safari */
+  -o-transform: rotate(30deg);
+  /* Opera */
+  -ms-transform: rotate(30deg);
+  /* IE9 */
+  transform: rotate(30deg);
+  /* W3C */ }
+
+.skew:hover {
+  -moz-transform: skew(30deg);
+  /* Firefox 3.6 Firefox 4 */
+  -webkit-transform: skew(30deg);
+  /* Safari */
+  -o-transform: skew(30deg);
+  /* Opera */
+  -ms-transform: skew(30deg);
+  /* IE9 */
+  transform: skew(30deg);
+  /* W3C */ }
+  .skew:hover .box {
+    -moz-transform: skew(-30deg);
+    /* Firefox 3.6 Firefox 4 */
+    -webkit-transform: skew(-30deg);
+    /* Safari */
+    -o-transform: skew(-30deg);
+    /* Opera */
+    -ms-transform: skew(-30deg);
+    /* IE9 */
+    transform: skew(-30deg);
+    /* W3C */ }
+
+.toRight:hover {
+  -webkit-animation: move-the-object 2s; }
+
+.flipper {
+  float: left;
+  perspective: 1000px;
+  width: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(0deg);
+  transform-style: preserve-3d;
+  transition-duration: .2s;
+  position: relative; }
+  .flipper:hover {
+    transform: rotateY(-180deg);
+    backface-visibility: visible;
+    transition-duration: 2s;
+    transform-style: preserve-3d; }
+
+.flipper-vertical {
+  float: left;
+  perspective: 1000px;
+  width: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(0deg);
+  transform-style: preserve-3d;
+  transition-duration: .2s;
+  position: relative; }
+  .flipper-vertical:hover {
+    transform: rotateX(-180deg);
+    backface-visibility: visible;
+    transition-duration: 2s;
+    transform-style: preserve-3d; }
+
+.bounce:hover {
+  -webkit-animation: bounce 5s; }
+
+/*# sourceMappingURL=main.css.map */

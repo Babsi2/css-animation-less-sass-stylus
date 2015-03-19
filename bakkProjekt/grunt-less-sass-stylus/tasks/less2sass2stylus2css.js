@@ -3,7 +3,6 @@ var sass = require('node-sass');
 var async = require('async');
 var path = require('path');
 var _ = require('lodash');
-var async = require('async');
 var chalk = require('chalk');
 var less = require('less');
 
@@ -67,13 +66,13 @@ module.exports = function(grunt){
         // No src files, goto next target. Warn would have been issued above.
         return nextFileObj();
       }
-      if(f.src[0].split(".").pop() == 'sass'){
+      if(f.src[0].split(".").pop() == 'sass' || f.src[0].split(".").pop() == 'scss'){
 	      if(destFile.split(".").pop() == 'css'){
 		      sass.render({
 						file: f.src[0],
-						success: function (css) {
-							grunt.file.write(f.dest, css);
-							grunt.log.writeln('File "' + f.dest + '" created.');
+						success: function (res) {
+							grunt.file.write(destFile, res.css);
+							grunt.log.writeln('File "' + destFile + '" created.');
 							next();
 						},
 						error: function (err) {
@@ -83,7 +82,7 @@ module.exports = function(grunt){
 						outputStyle: options.outputStyle,
 						sourceComments: options.sourceComments
 					});
-				} else if(destFile.split(".").pop() == 'less'){
+				} else if(f.src[0].split(".").pop() == 'scss' && destFile.split(".").pop() == 'less'){
 		      var lessCode;
 		      var i = 0;
 
@@ -107,11 +106,10 @@ module.exports = function(grunt){
 		        }
 		        nextFileObj();
 		      });
-
 					
 		    }else if(destFile.split(".").pop() == "styl"){
 		    	var sourceFile = f.src[0];
-		    	var process = function (sass) {
+		    	var convertStyl = function (sass) {
 					return sass
 						// remove opening brackets
 						.replace(/^(\ *)(.+)\ +\{\ *\n?\ */mg, "$1$2\n$1  ")
@@ -174,7 +172,7 @@ module.exports = function(grunt){
 						.replace(/\ *$/g, "");
 					}
 		  
-					var stylus = process(fs.readFileSync(sourceFile, "utf-8"));
+					var stylus = convertStyl(fs.readFileSync(sourceFile, "utf-8"));
 					fs.writeFileSync(destFile, stylus);
 		    }else if(destFile.split(".").pop() == "scss"){
 		    	var _ = grunt.util._;
@@ -186,8 +184,8 @@ module.exports = function(grunt){
 		      writeFile(f.dest, concatOutput(validFiles, options));
 		    }
 		  }else if(f.src[0].split(".").pop() == 'less'){
-		  	grunt.log.writeln('less');
 		  	if(destFile.split(".").pop() == 'css'){
+
 		  		var compiled = [];
 		      var i = 0;
 
@@ -207,23 +205,17 @@ module.exports = function(grunt){
 		              grunt.file.write(sourceMapFilename, output.map);
 		              grunt.log.writeln('File ' + chalk.cyan(sourceMapFilename) + ' created.');
 		            }
-		            process.nextTick(next);
+		            var allCss = compiled.join(options.compress ? '' : grunt.util.normalizelf(grunt.util.linefeed));
+			          grunt.file.write(destFile, allCss);
+			          grunt.log.writeln('File ' + chalk.cyan(destFile) + ' created');
+		            //process.nextTick(next);
 		          },
 		          function(err) {
 		            nextFileObj(err);
 		          });
-		      }, function() {
-		        if (compiled.length < 1) {
-		          grunt.log.warn('Destination ' + chalk.cyan(destFile) + ' not written because compiled files were empty.');
-		        } else {
-		          var allCss = compiled.join(options.compress ? '' : grunt.util.normalizelf(grunt.util.linefeed));
-		          grunt.file.write(destFile, allCss);
-		          grunt.log.writeln('File ' + chalk.cyan(destFile) + ' created');
-		        }
-		        nextFileObj();
 		      });
 		  	}else if (destFile.split(".").pop() == 'styl'){
-		  		var process = function (less) {
+		  		var convertLess = function (less) {
 						return less
 							// remove opening brackets
 							//.replace(/^(\ *)(.+)\ +\{\ *\n?\ */mg, "$1$2\n$1  ")
@@ -285,64 +277,44 @@ module.exports = function(grunt){
 							.replace(/\ *$/g, "");
 					}
 				  
-					var stylus = process(fs.readFileSync(f.src[0], "utf-8"));
+					var stylus = convertLess(fs.readFileSync(f.src[0], "utf-8"));
 					fs.writeFileSync(destFile, stylus);
 		  	}else if(destFile.split(".").pop() == 'scss'){
+		  		var scssConvert = function(less) {
+
+					  return less
+
+					  .replace(/(\s|^)\.([\w\-]*\(?.*\)?;)/g, '$1@include $2')
+
+					  .replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2) {')
+
+					  .replace(/spin\(/g, 'adjust-hue(')
+
+					  .replace(/@(?!(media|import|mixin|font-face)(\s|\())/g, '$');
+					};
+
+					var sass = scssConvert(fs.readFileSync(f.src[0], "utf-8"));
+					fs.writeFileSync(destFile, sass);
 
 		  	}else if(destFile.split(".").pop() == 'sass'){
 		  		grunt.log.writeln('less sass');
-		  		function Less2Sass(){
+		  		
 
-					}
+					var sassConvert = function(less) {
 
-					Less2Sass.prototype.convert = function(file) {
+					  return less
 
-					  this.file = file;
+					  .replace(/(\s|^)\.([\w\-]*\(?.*\)?;)/g, '$1@include $2')
 
-					  this.convertVariables()
-					      .convertMixins()
-					      .includeMixins()
-					      .convertColourHelpers();
+					  .replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2) {')
 
-					  return this.file;
+					  .replace(/spin\(/g, 'adjust-hue(')
+
+					  .replace(/@(?!(media|import|mixin|font-face)(\s|\())/g, '$');
 					};
 
-					Less2Sass.prototype.includeMixins = function() {
-					  var includeRegex = /(\s|^)\.([\w\-]*\(?.*\)?;)/g;
-
-					  this.file = this.file.replace(includeRegex, '$1@include $2');
-
-					  return this;
-					};
-
-					Less2Sass.prototype.convertMixins = function() {
-					  var mixinRegex = /\.([\w\-]*)\s*\((.*)\)\s*\{/g;
-
-					  this.file = this.file.replace(mixinRegex, '@mixin $1($2) {');
-					  
-					  return this;
-					};
-
-					Less2Sass.prototype.convertColourHelpers = function() {
-					  var helperRegex = /spin\(/g;
-
-					  this.file = this.file.replace(helperRegex, 'adjust-hue(');
-
-					  // TODO (EK): Flag other colour helpers for manual conversion that SASS does not have
-
-					  return this;
-					};
-
-					Less2Sass.prototype.convertVariables = function() {
-					  // Matches any @ that doesn't have 'media ' or 'import ' after it.
-					  var atRegex = /@(?!(media|import|mixin|font-face)(\s|\())/g;
-
-					  this.file = this.file.replace(atRegex, '$');
-
-					  return this;
-					};
-
-					module.exports = new Less2Sass();
+					var sass = sassConvert(fs.readFileSync(f.src[0], "utf-8"));
+					fs.writeFileSync(destFile, sass);
 		  	}
 		  }else if(f.src[0].split(".").pop() == 'styl'){
 		  	grunt.log.writeln('stylus');
@@ -390,7 +362,7 @@ module.exports = function(grunt){
     var message = 'error';
 
     grunt.log.error(message);
-    grunt.fail.warn('Error compiling ' + file);
+    grunt.fail.warn('365 Error compiling ' + file);
   };
   
   var convert = function (source) {
@@ -651,7 +623,7 @@ module.exports = function(grunt){
     var message = less.formatError ? less.formatError(e) : formatLessError(e);
 
     grunt.log.error(message);
-    grunt.fail.warn('Error compiling ' + file);
+    grunt.fail.warn('626 Error compiling ' + file);
   };
 
   var wrapError = function (e, message) {

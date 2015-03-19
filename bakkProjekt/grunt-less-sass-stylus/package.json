@@ -33,13 +33,19 @@
     "fs": "*",
     "prelude-ls": "~1.0.3",
     "less": "^2.4.0",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "object-assign": "^2.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.0",
+    "grunt-cli": "^0.1.13",
     "load-grunt-tasks": "*",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-nodeunit": "~0.2.2"
+    "grunt-contrib-nodeunit": "~0.2.2",
+    "grunt-contrib-internal": "^0.4.12",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "less-plugin-clean-css": "^1.5.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.0"

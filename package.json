@@ -1,0 +1,46 @@
+{
+  "name": "generator-test",
+  "version": "0.0.0",
+  "description": "Yeoman generator",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "Babsi2/generator-css-animations",
+  "author": {
+    "name": "",
+    "email": "",
+    "url": "https://github.com/Babsi2"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.18.0",
+    "chalk": "^0.5.0",
+    "yosay": "^0.3.0",
+    "fs": "*",
+    "grunt": "~0.4.5",
+    "async": "^0.2.10",
+    "load-grunt-tasks": "*",
+    "grunt-cli": "0.1.13",
+    "grunt-sass": "0.8.1",
+    "grunt-scss2less":"*",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-clean": ">=0.4.0",
+    "jit-grunt": "~0.7.0"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "peerDependencies": {
+    "yo": ">=1.0.0"
+  }
+}

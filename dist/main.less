@@ -1,0 +1,214 @@
+.change-color(@str) {
+  &:hover{
+    -webkit-animation: @{str};
+  }
+}
+
+.to-right(@str) {
+  &:hover{
+    -webkit-animation: @{str};
+  }  
+}
+
+.bounce(@str) {
+  &:hover{
+    -webkit-animation: @{str};
+  }
+}
+
+.bounceIn(@str){
+  &:hover{
+    -webkit-animation: @{str};
+  }
+}
+
+.keyframes(@animationName) {
+    @-webkit-keyframes @{animationName} {
+        @content;
+    }
+    @-moz-keyframes @{animationName} {
+        @content;
+    }
+    @-o-keyframes @{animationName} {
+        @content;
+    }
+    @keyframes @{animationName} {
+        @content;
+    }
+}
+
+.keyframes(change-the-color) {
+  0%   { background-color: rgb(255,255,0); }
+  100% { background-color: rgb(255,0,255); }
+} 
+
+.keyframes(move-the-object) {
+  0%   { margin-left: 65px; margin-right: 65px; }
+  100% { margin-left: 95px; margin-right: 35px; }
+} 
+
+.keyframes(bounce) {
+  0%  { margin-top: 15px;}
+  25% { margin-top: 45px;}
+  50% { margin-top: 25px;}
+  75% { margin-top: 50px;}
+  100% { margin-top: 15px;}
+} 
+
+
+.keyframes(bounceIn) {
+  0%, 20%, 40%, 60%, 80%, 100% {
+    transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    transform: scale3d(.9, .9, .9);
+  }
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+    transform: scale3d(.97, .97, .97);
+  }
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.zoom {
+  /* Webkit for Chrome and Safari */
+  -webkit-transform: scale(1, 1); 
+  -webkit-transition-duration: 500ms;
+  -webkit-transition-timing-function: ease-out;
+ 
+  /* Webkit for Mozila Firefox */
+  -moz-transform: scale(1, 1);
+  -moz-transition-duration: 500ms;
+  -moz-transition-timing-function: ease-out;
+ 
+  /* Webkit for IE( Version: 11, 10 ) */
+  -ms-transform: scale(1, 1);
+  -ms-transition-duration: 500ms;
+  -ms-transition-timing-function: ease-out;
+  &:hover{
+    /* Webkit for Chrome and Safari */
+    -webkit-transform: scale(1.2, 1.2); 
+    -webkit-transition-duration: 500ms;
+    -webkit-transition-timing-function: ease-out;
+   
+    /* Webkit for Mozila Firefox */
+    -moz-transform: scale(1.2, 1.2);
+    -moz-transition-duration: 500ms;
+    -moz-transition-timing-function: ease-out;
+   
+    /* Webkit for IE( Version: 11, 10 ) */
+    -ms-transform: scale(1.20, 1.20);
+    -ms-transition-duration: 500ms;
+    -ms-transition-timing-function: ease-out;
+  }
+}
+
+.rotate{
+  &:hover{
+    -moz-transform:rotate(30deg); /* Firefox 3.6 Firefox 4 */
+    -webkit-transform:rotate(30deg); /* Safari */
+    -o-transform:rotate(30deg); /* Opera */
+    -ms-transform:rotate(30deg); /* IE9 */
+    transform:rotate(30deg); /* W3C */
+  }
+}
+
+.skew{
+  &:hover{
+    -moz-transform:skew(30deg); /* Firefox 3.6 Firefox 4 */
+    -webkit-transform:skew(30deg); /* Safari */
+    -o-transform:skew(30deg); /* Opera */
+    -ms-transform:skew(30deg); /* IE9 */
+    transform:skew(30deg); /* W3C */
+    .box{
+      -moz-transform:skew(-30deg); /* Firefox 3.6 Firefox 4 */
+      -webkit-transform:skew(-30deg); /* Safari */
+      -o-transform:skew(-30deg); /* Opera */
+      -ms-transform:skew(-30deg); /* IE9 */
+      transform:skew(-30deg); /* W3C */
+    }
+  }
+}
+
+.flipper{
+  float: left;
+  perspective: 1000px;
+  width: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(0deg);
+  transform-style: preserve-3d;
+  transition-duration: .2s;
+  position: relative; 
+  &:hover{      
+    transform: rotateY(-180deg);
+    backface-visibility: visible;
+    transition-duration: 2s;
+    transform-style: preserve-3d;
+  }
+}
+
+.flipper-vertical{
+  float: left;
+  perspective: 1000px;
+  width: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(0deg);
+  transform-style: preserve-3d;
+  transition-duration: .2s;
+  position: relative; 
+  &:hover{      
+    transform: rotateX(-180deg);
+    backface-visibility: visible;
+    transition-duration: 2s;
+    transform-style: preserve-3d;
+  }
+}
+
+.change-color{
+  .change-color('change-the-color 2s');
+}
+
+.zoom{
+	.zoom;
+}
+
+.rotate{
+	.rotate;
+}
+
+.skew{
+	.skew;
+}
+
+.toRight{
+    .to-right('move-the-object 2s');
+}
+
+.flipper{
+  .flipper;
+}
+
+.flipper-vertical{
+  .flipper-vertical;
+}
+
+.bounce{
+  .bounce('bounce 5s');
+}
+
+.bounceIn{
+  .bounceIn('bounceIn 5s');
+}

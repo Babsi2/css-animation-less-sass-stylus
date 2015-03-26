@@ -32,13 +32,13 @@ how to install Stylus or SCSS and how to use the stylesheets.
 From Folder 'dist' you get the Stylesheets.
 
 Finally you need to add one of the following classes:
-.change-color
-.zoom
-.rotate
-.skew
-.flipper-vertical
-.flipper
-.toRight
-.bounce
-.bounceIn
+* `.change-color`
+* `.zoom`
+* `.rotate`
+* `.skew`
+* `.flipper-vertical`
+* `.flipper`
+* `.toRight`
+* `.bounce`
+* `.bounceIn`
 
